@@ -78,6 +78,32 @@ export default function RepoSelect({
     const noPRs =
         !isLoadingPullRequests && selectedRepo && pullRequests.length === 0
 
+    const handleReview = async () => {
+        try {
+            const response = await fetch(
+                `/api/github/review`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        url: selectedPullRequest?.url
+                    })
+                },
+
+            )
+
+            if (!response.ok) {
+                setPullRequests([])
+                return
+            }
+
+            const data = (await response.json())
+            console.log(data);
+        } finally {
+            setIsLoadingPullRequests(false)
+        }
+    }
+
     return (
         <div className="w-full space-y-3">
             <StepCard
@@ -199,7 +225,9 @@ export default function RepoSelect({
                                 #{selectedPullRequest.number} — {selectedPullRequest.title}
                             </p>
                         </div>
-                        <Button className="group relative w-full overflow-hidden bg-primary text-primary-foreground shadow-md shadow-primary/20 transition-all hover:shadow-lg hover:shadow-primary/30 sm:w-auto">
+                        <Button className="group relative w-full overflow-hidden bg-primary text-primary-foreground shadow-md shadow-primary/20 transition-all hover:shadow-lg hover:shadow-primary/30 sm:w-auto"
+                            onClick={handleReview}
+                        >
                             <span className="flex items-center gap-2">
                                 Submit for Review
                                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

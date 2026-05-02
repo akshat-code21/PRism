@@ -20,6 +20,8 @@ export const auth = betterAuth({
     github: {
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      // Default Better Auth scopes are read:user + user:email only — insufficient to post PR comments.
+      scope: ["repo"],
     },
   },
 })
