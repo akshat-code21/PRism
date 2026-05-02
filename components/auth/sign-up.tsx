@@ -189,7 +189,7 @@ export function SignUp({
             </>
           )}
 
-          {emailAndPassword?.enabled && (
+          {/* {emailAndPassword?.enabled && (
             <form onSubmit={handleSubmit}>
               <FieldGroup>
                 <Field data-invalid={!!fieldErrors.name}>
@@ -447,15 +447,15 @@ export function SignUp({
                 </div>
               </FieldGroup>
             </form>
-          )}
+          )} */}
 
           {socialPosition === "bottom" && (
             <>
-              {showSeparator && (
+              {/* {showSeparator && (
                 <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card text-xs flex items-center">
                   {localization.auth.or}
                 </FieldSeparator>
-              )}
+              )} */}
 
               {socialProviders && socialProviders.length > 0 && (
                 <ProviderButtons

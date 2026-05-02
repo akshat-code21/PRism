@@ -162,7 +162,7 @@ export function SignIn({
             </>
           )}
 
-          {emailAndPassword?.enabled && (
+          {/* {emailAndPassword?.enabled && (
             <form onSubmit={handleSubmit}>
               <FieldGroup>
                 <Field data-invalid={!!fieldErrors.email}>
@@ -277,15 +277,15 @@ export function SignIn({
                 </div>
               </FieldGroup>
             </form>
-          )}
+          )} */}
 
           {socialPosition === "bottom" && (
             <>
-              {showSeparator && (
+              {/* {showSeparator && (
                 <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card text-xs flex items-center">
                   {localization.auth.or}
                 </FieldSeparator>
-              )}
+              )} */}
 
               {socialProviders && socialProviders.length > 0 && (
                 <ProviderButtons
@@ -298,14 +298,14 @@ export function SignIn({
         </div>
 
         <div className="flex flex-col gap-3 items-center w-full mt-4">
-          {emailAndPassword?.forgotPassword && (
+          {/* {emailAndPassword?.forgotPassword && (
             <Link
               href={`${basePaths.auth}/${viewPaths.auth.forgotPassword}`}
               className="self-center text-sm underline-offset-4 hover:underline"
             >
               {localization.auth.forgotPasswordLink}
             </Link>
-          )}
+          )} */}
 
           {emailAndPassword?.enabled && (
             <FieldDescription className="text-center">

@@ -3,6 +3,7 @@ import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Providers } from "@/components/providers"
 import { cn } from "@/lib/utils"
+import { Metadata } from "next"
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -10,6 +11,11 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+const metadata: Metadata = {
+  title: "PRism",
+  description: "GitHub PR review agent",
+}
 
 export default function RootLayout({
   children,
