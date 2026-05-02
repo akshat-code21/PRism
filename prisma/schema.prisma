@@ -22,6 +22,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  reviews       Review[]
 
   @@unique([email])
   @@map("user")
@@ -73,4 +74,30 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+enum ReviewStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model Review {
+  id              String       @id @default(uuid())
+  title           String
+  url             String
+  repoOwner       String
+  repoName        String
+  prNumber        Int
+  generatedReview String?
+  commentUrl      String?
+  status          ReviewStatus @default(PENDING)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("review")
 }
