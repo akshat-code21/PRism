@@ -1,3 +1,4 @@
+import { columns, DataTable } from "@/components/ui/data-table"
 import { auth } from "@/lib/auth"
 import axios from "axios"
 import { headers } from "next/headers"
@@ -9,6 +10,13 @@ type ReviewsStats = {
   reviewsCount?: number
   successfulReviewsCount?: number
   failedReviewsCount?: number
+  recentReviews?: Review[]
+}
+
+export interface Review {
+  prUrl: string
+  status: "PEDNING" | "COMPLETED" | "FAILED"
+  date: Date
 }
 
 export default async function DashboardPage() {
@@ -24,6 +32,7 @@ export default async function DashboardPage() {
   let reviewsCount = 0
   let successfulReviewsCount = 0
   let failedReviewsCount = 0
+  let recentReviews: Review[] = []
 
   try {
     const { data } = await axios.get<ReviewsStats>(`${baseUrl}/api/reviews`, {
@@ -32,6 +41,7 @@ export default async function DashboardPage() {
     reviewsCount = data.reviewsCount ?? 0
     successfulReviewsCount = data.successfulReviewsCount ?? 0
     failedReviewsCount = data.failedReviewsCount ?? 0
+    recentReviews = data.recentReviews ?? []
   } catch {
   }
 
@@ -62,8 +72,9 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div>
+      <div className="flex flex-col items-start gap-8 w-full">
         <h1 className="font-bold text-3xl">Recent Reviews</h1>
+        <DataTable columns={columns} data={recentReviews} />
       </div>
     </div>
   )

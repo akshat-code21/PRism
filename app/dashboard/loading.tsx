@@ -2,9 +2,9 @@ import { Spinner } from "@/components/ui/spinner";
 
 export default function DashboardLoading() {
     return (
-        <div className="flex items-center justify-center h-full gap-2 text-5xl font-bold">
-            <Spinner className="size-4 animate-spin" />
-            <p className="text-sm text-muted-foreground">Loading dashboard...</p>
+        <div className="flex items-center justify-center h-full gap-6 text-5xl font-bold">
+            <Spinner className="size-10 animate-spin" />
+            <p className="text-4xl text-muted-foreground">Loading dashboard...</p>
         </div>
     )
 }
