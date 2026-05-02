@@ -39,11 +39,6 @@ const navItems:NavItem[] = [
         href: "/dashboard/reviews",
         icon: History,
     },
-    {
-        title: "Settings",
-        href: "/dashboard/settings",
-        icon: Settings,
-    },
 ]
 
 export function AppSidebar() {
