@@ -1,14 +1,38 @@
 import { auth } from "@/lib/auth"
+import axios from "axios"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL
+
+type ReviewsStats = {
+  reviewsCount?: number
+  successfulReviewsCount?: number
+  failedReviewsCount?: number
+}
+
 export default async function DashboardPage() {
+  const headerList = await headers()
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: headerList,
   })
 
   if (!session) {
     redirect("/auth/sign-in")
+  }
+
+  let reviewsCount = 0
+  let successfulReviewsCount = 0
+  let failedReviewsCount = 0
+
+  try {
+    const { data } = await axios.get<ReviewsStats>(`${baseUrl}/api/reviews`, {
+      headers: { Cookie: headerList.get("cookie") ?? "" },
+    })
+    reviewsCount = data.reviewsCount ?? 0
+    successfulReviewsCount = data.successfulReviewsCount ?? 0
+    failedReviewsCount = data.failedReviewsCount ?? 0
+  } catch {
   }
 
   return (
@@ -26,16 +50,20 @@ export default async function DashboardPage() {
       <div className="grid gap-4 md:grid-cols-3">
         <div className="rounded-xl border bg-card p-5 shadow-sm">
           <p className="text-sm text-muted-foreground">Reviews requested</p>
-          <p className="mt-3 text-3xl font-semibold">0</p>
+          <p className="mt-3 text-3xl font-semibold">{reviewsCount}</p>
         </div>
         <div className="rounded-xl border bg-card p-5 shadow-sm">
           <p className="text-sm text-muted-foreground">Completed</p>
-          <p className="mt-3 text-3xl font-semibold">0</p>
+          <p className="mt-3 text-3xl font-semibold">{successfulReviewsCount}</p>
         </div>
         <div className="rounded-xl border bg-card p-5 shadow-sm">
           <p className="text-sm text-muted-foreground">Failed</p>
-          <p className="mt-3 text-3xl font-semibold">0</p>
+          <p className="mt-3 text-3xl font-semibold">{failedReviewsCount}</p>
         </div>
+      </div>
+
+      <div>
+        <h1 className="font-bold text-3xl">Recent Reviews</h1>
       </div>
     </div>
   )
