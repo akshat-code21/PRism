@@ -60,7 +60,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", figtree.variable)}
     >
-      <body className="min-h-svh bg-background">
+      <body className="min-h-svh bg-background overflow-x-hidden">
         <ThemeProvider>
           <Providers>{children}</Providers>
         </ThemeProvider>

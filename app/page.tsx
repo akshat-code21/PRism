@@ -20,7 +20,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="dark min-h-screen bg-background text-foreground" style={{ scrollBehavior: "smooth" }}>
+    <div className="dark min-h-screen w-full bg-background text-foreground overflow-x-hidden" style={{ scrollBehavior: "smooth" }}>
       <Navbar />
       <HeroSection />
       <FeaturesSection />

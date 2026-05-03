@@ -42,7 +42,7 @@ export default function HeroSection() {
             to GitHub. In seconds, not hours.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Button size="lg" className="shadow-lg shadow-primary/25" nativeButton={false} render={<Link href="/auth/sign-in" />}>
               Start Reviewing
               <ArrowRight className="ml-1 size-4" />
