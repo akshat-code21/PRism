@@ -15,7 +15,7 @@ const fontMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "PRism — AI-Powered GitHub PR Reviews",
+    default: "PRism - AI-Powered GitHub PR Reviews",
     template: "%s | PRism",
   },
   description:
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "PRism" }],
   openGraph: {
-    title: "PRism — AI-Powered GitHub PR Reviews",
+    title: "PRism - AI-Powered GitHub PR Reviews",
     description:
       "Instant AI code reviews for GitHub pull requests. Ship better code, faster.",
     siteName: "PRism",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PRism — AI-Powered GitHub PR Reviews",
+    title: "PRism - AI-Powered GitHub PR Reviews",
     description:
       "Instant AI code reviews for GitHub pull requests. Ship better code, faster.",
   },

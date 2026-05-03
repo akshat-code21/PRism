@@ -1,4 +1,4 @@
-# GitHub Agent — Frontend
+# GitHub Agent - Frontend
 
 Next.js dashboard for the companion [github-agent-backend](https://github.com/akshat-code21/gh-pr-agent-backend) FastAPI service: sign in with GitHub, pick a pull request, run an AI review through that API, and browse saved reviews in PostgreSQL.
 
@@ -73,11 +73,11 @@ bun run typecheck  # TypeScript --noEmit
 
 ## Project layout (high level)
 
-- `app/` — routes, dashboard, auth UI, API routes (`/api/auth`, `/api/reviews`, `/api/github/*`)
-- `components/` — UI and feature components
-- `lib/auth.ts` — Better Auth server config and shared Prisma client
-- `prisma/` — schema and migrations
-- `generated/prisma/` — Prisma client output (generated; do not edit by hand)
+- `app/` - routes, dashboard, auth UI, API routes (`/api/auth`, `/api/reviews`, `/api/github/*`)
+- `components/` - UI and feature components
+- `lib/auth.ts` - Better Auth server config and shared Prisma client
+- `prisma/` - schema and migrations
+- `generated/prisma/` - Prisma client output (generated; do not edit by hand)
 
 ## Adding shadcn components
 

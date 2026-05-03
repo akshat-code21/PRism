@@ -329,7 +329,7 @@ export default function RepoSelect() {
                                     Ready to analyse
                                 </p>
                                 <p className="mt-0.5 truncate text-sm font-medium text-foreground">
-                                    #{selectedPullRequest.number}&nbsp;—&nbsp;{selectedPullRequest.title}
+                                    #{selectedPullRequest.number}&nbsp;-&nbsp;{selectedPullRequest.title}
                                 </p>
                             </div>
                         </div>

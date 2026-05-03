@@ -21,7 +21,7 @@ export async function generateMetadata({
 
   return {
     title,
-    description: `${title} to PRism — AI-powered GitHub PR reviews.`,
+    description: `${title} to PRism - AI-powered GitHub PR reviews.`,
   }
 }
 
