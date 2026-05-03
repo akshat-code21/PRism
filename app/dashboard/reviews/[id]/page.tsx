@@ -2,9 +2,27 @@ import { auth, prisma } from "@/lib/auth"
 import { headers } from "next/headers"
 import { redirect, notFound } from "next/navigation"
 import ReviewResult from "@/components/review-result"
-import { ArrowLeft, Clock, XCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Clock, XCircle } from "lucide-react"
 import BackButton from "@/components/back-button"
+import type { Metadata } from "next"
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string }>
+}): Promise<Metadata> {
+    const { id } = await params
+    const review = await prisma.review.findUnique({ where: { id } })
+
+    if (!review) {
+        return { title: "Review Not Found" }
+    }
+
+    return {
+        title: `Review: ${review.repoOwner}/${review.repoName} #${review.prNumber}`,
+        description: `AI-generated code review for ${review.repoOwner}/${review.repoName} pull request #${review.prNumber}.`,
+    }
+}
 
 export default async function ReviewHistoryPage({
     params,

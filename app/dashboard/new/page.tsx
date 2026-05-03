@@ -3,6 +3,13 @@ import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { GitBranch } from "lucide-react"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "New Review",
+  description:
+    "Select a GitHub repository and pull request to generate an AI-powered code review.",
+}
 
 export default async function NewReviewPage() {
   const requestHeaders = await headers()

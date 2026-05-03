@@ -3,6 +3,13 @@ import { auth } from "@/lib/auth"
 import axios from "axios"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description:
+    "View your PR review stats, recent reviews, and request new AI-powered code reviews from your dashboard.",
+}
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 

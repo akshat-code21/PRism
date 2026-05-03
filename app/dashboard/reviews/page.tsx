@@ -3,6 +3,13 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import axios from "axios"
 import { columns, DataTable } from "@/components/ui/data-table";
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Review History",
+  description:
+    "Browse and revisit all your past AI-generated pull request reviews.",
+}
 
 export default async function HistoryPage() {
     const headerList = await headers()
