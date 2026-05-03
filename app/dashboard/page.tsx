@@ -22,7 +22,7 @@ type ReviewsStats = {
 
 export interface Review {
   prUrl: string
-  status: "PEDNING" | "COMPLETED" | "FAILED"
+  status: "PENDING" | "COMPLETED" | "FAILED"
   date: Date
 }
 
