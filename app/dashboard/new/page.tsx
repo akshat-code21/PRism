@@ -1,9 +1,8 @@
-import RepoSelect, { type RepoOption } from "@/components/repo-select"
+import RepoSelect from "@/components/repo-select"
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
-import { Octokit } from "octokit"
-import { Sparkles, GitBranch } from "lucide-react"
+import { GitBranch } from "lucide-react"
 
 export default async function NewReviewPage() {
   const requestHeaders = await headers()
@@ -35,22 +34,6 @@ export default async function NewReviewPage() {
     )
   }
 
-  const octokit = new Octokit({
-    auth: accessToken,
-  })
-
-  const repos = await octokit.rest.repos.listForAuthenticatedUser({
-    sort: "updated",
-    per_page: 20,
-  })
-
-  const repositories: RepoOption[] = repos.data.map((repo) => ({
-    id: repo.id,
-    name: repo.name,
-    fullName: repo.full_name,
-    owner: repo.owner.login,
-  }))
-
   return (
     <div className="relative w-full max-w-2xl px-4 py-10 sm:px-6">
       <div className="mb-10">
@@ -62,7 +45,7 @@ export default async function NewReviewPage() {
         </p>
       </div>
 
-      <RepoSelect repositories={repositories} />
+      <RepoSelect />
     </div>
   )
 }

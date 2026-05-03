@@ -7,7 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "./ui/button"
 import {
     GitFork,
@@ -36,11 +36,15 @@ type PullRequestOption = {
     url: string
 }
 
-export default function RepoSelect({
-    repositories,
-}: {
-    repositories: RepoOption[]
-}) {
+const PER_PAGE = 20
+
+export default function RepoSelect() {
+    const [repositories, setRepositories] = useState<RepoOption[]>([])
+    const [repoPage, setRepoPage] = useState(1)
+    const [hasMoreRepos, setHasMoreRepos] = useState(true)
+    const [isLoadingRepos, setIsLoadingRepos] = useState(false)
+    const [initialReposLoaded, setInitialReposLoaded] = useState(false)
+
     const [selectedRepo, setSelectedRepo] = useState<RepoOption | null>(null)
     const [selectedPullRequest, setSelectedPullRequest] = useState<PullRequestOption | null>(null)
     const [pullRequests, setPullRequests] = useState<PullRequestOption[]>([])
@@ -48,6 +52,34 @@ export default function RepoSelect({
     const [isLoadingReview, setIsLoadingReview] = useState(false)
     const [review, setReview] = useState<string | null>(null)
     const [copied, setCopied] = useState(false)
+
+    const fetchRepos = async (page: number) => {
+        if (isLoadingRepos) return
+        setIsLoadingRepos(true)
+        try {
+            const res = await fetch(`/api/github/repos?page=${page}&per_page=${PER_PAGE}`)
+            if (!res.ok) return
+            const data = await res.json() as {
+                repositories: RepoOption[]
+                hasNextPage: boolean
+                page: number
+            }
+            setRepositories((prev) => {
+                const existingIds = new Set(prev.map((r) => r.id))
+                const newRepos = data.repositories.filter((r) => !existingIds.has(r.id))
+                return [...prev, ...newRepos]
+            })
+            setHasMoreRepos(data.hasNextPage)
+            setRepoPage(page)
+        } finally {
+            setIsLoadingRepos(false)
+            setInitialReposLoaded(true)
+        }
+    }
+
+    useEffect(() => {
+        fetchRepos(1)
+    }, [])
 
     const repoItems = repositories.map((repository) => ({
         label: repository.fullName,
@@ -204,7 +236,13 @@ export default function RepoSelect({
                             }}
                         >
                             <SelectTrigger className="px-3 h-10 w-full border-border/60 bg-background/60 text-sm transition-colors hover:bg-muted/30 focus:ring-primary/30">
-                                <SelectValue placeholder="Choose a repository…" />
+                                <SelectValue
+                                    placeholder={
+                                        !initialReposLoaded
+                                            ? "Loading repositories…"
+                                            : "Choose a repository…"
+                                    }
+                                />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
@@ -216,6 +254,21 @@ export default function RepoSelect({
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
+                        {hasMoreRepos && (
+                            <Button
+                                variant={"ghost"}
+                                type="button"
+                                disabled={isLoadingRepos}
+                                onClick={() => fetchRepos(repoPage + 1)}
+                                className="mt-1.5 flex w-full items-center justify-center gap-1.5 py-1.5 text-md font-medium text-primary hover:text-primary transition-colors disabled:opacity-50"
+                            >
+                                {isLoadingRepos ? (
+                                    <><Loader2 className="size-3 animate-spin" />Loading…</>
+                                ) : (
+                                    "Load more repositories"
+                                )}
+                            </Button>
+                        )}
                     </div>
 
                     <div className="space-y-2">
