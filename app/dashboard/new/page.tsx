@@ -41,7 +41,7 @@ export default async function NewReviewPage() {
           New Review Request
         </h1>
         <p className="mt-2 text-sm text-muted-foreground sm:text-base">
-          Select a repository and pull request - our AI will analyse it.
+          Select a repository and pull request - our agent will analyse it.
         </p>
       </div>
 
